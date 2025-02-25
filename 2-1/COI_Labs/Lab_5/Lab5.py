@@ -11,8 +11,9 @@ def salt_and_pepper_noise(image, prob):
     output[black] = 0
     return output
 
+
 # Пункт 4: Завантаження сірого зображення
-gray_image = cv2.imread('img.png', cv2.IMREAD_GRAYSCALE)
+gray_image = cv2.imread('../Lab_6/img.png', cv2.IMREAD_GRAYSCALE)
 
 # Пункт 5: Вирівнювання гістограми
 equalized_image = cv2.equalizeHist(gray_image)
@@ -20,7 +21,7 @@ equalized_image = cv2.equalizeHist(gray_image)
 # Пункт 5: Гамма-корекція
 gamma1 = 0.5
 gamma2 = 2.0
-gamma_corrected1 = np.array(255 * (gray_image / 255) ** gamma1, dtype='uint8')
+gamma_corrected1 = np.array(255 * (gray_image / 255) ** gamma1, dtype='uint8')  
 gamma_corrected2 = np.array(255 * (gray_image / 255) ** gamma2, dtype='uint8')
 
 # Пункт 6: Додавання шуму "сіль та перець"
@@ -42,7 +43,7 @@ sobel_combined = cv2.magnitude(sobelx, sobely)
 edges = cv2.Canny(gray_image, 100, 200)
 
 # Пункт 1: Завантаження кольорового зображення
-color_image = cv2.imread('img.png')
+color_image = cv2.imread('../Lab_6/img.png')
 
 # Пункт 2: Перетворення до RGB та YUV
 img_rgb = cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB)
@@ -52,29 +53,24 @@ img_yuv = cv2.cvtColor(color_image, cv2.COLOR_BGR2YUV)
 Y, U, V = cv2.split(img_yuv)
 R, G, B = cv2.split(img_rgb)
 
-# Побудова графіків (Пункт 3 та 12)
-fig, axes = plt.subplots(16, 1, figsize=(8, 32))
+fig, axes = plt.subplots(16, 1, figsize=(15, 32))
 axes = axes.ravel()
 
-# Заголовки для кожного підграфіку
-titles = ['Original RGB', 'Equalized Image', 'Gamma Corrected 0.5', 'Gamma Corrected 2.0',
-          'Red Channel', 'Green Channel', 'Blue Channel', 'Sobel Edges',
-          'Y (Luminance)', 'U (Chrominance)', 'V (Chrominance)', 'Noisy Image',
-          'Equalized Noisy Image', 'Blurred Image (3x3)', 'Median Filtered Image', 'Canny Edges']
+titles = ['Оригінал RGB', 'Вирівняне зображення', 'Гамма-корекція 0.5', 'Гамма-корекція 2.0',
+          'Червоний канал', 'Зелений канал', 'Синій канал', 'Краї Собеля',
+          'Y (Яскравість)', 'U (Хромінант)', 'V (Хромінант)', 'Зображення з шумом',
+          'Вирівняне зображення з шумом', 'Розмите зображення (3x3)', 'Медіанний фільтр', 'Краї Кенні']
 
-# Зображення для кожного підграфіку
 images = [img_rgb, equalized_image, gamma_corrected1, gamma_corrected2,
           R, G, B, sobel_combined,
           Y, U, V, noisy_image,
           equalized_noisy_image, blurred_image, median_filtered, edges]
 
-# Проходження по осях та зображеннях для побудови графіків
 for i in range(len(images)):
     cmap = 'gray' if len(images[i].shape) == 2 else None
     axes[i].imshow(images[i], cmap=cmap)
     axes[i].set_title(titles[i], fontsize=14)
     axes[i].axis('off')
 
-# Налаштування макету
 plt.tight_layout()
 plt.show()
