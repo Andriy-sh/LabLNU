@@ -1,4 +1,4 @@
-"OrderDate","Region","City","Category","Product","Quantity","UnitPrice",""
+"OrderDate","Region",City,"Category","Product","Quantity","UnitPrice",""
 "1/4/2020","East","Boston","Crackers","Whole Wheat","87","3.49",""
 "1/7/2020","West","Los Angeles","Cookies","Chocolate Chip","58","1.87",""
 "1/10/2020","East","New York","Cookies","Chocolate Chip","82","1.87",""
