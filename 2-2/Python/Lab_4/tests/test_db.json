@@ -1,0 +1,19 @@
+{
+    "name": "MyDB",
+    "tables": {
+        "people": {
+            "columns": [
+                [
+                    "name",
+                    "StringType",
+                    false
+                ]
+            ],
+            "rows": [
+                {
+                    "name": "Marry"
+                }
+            ]
+        }
+    }
+}
