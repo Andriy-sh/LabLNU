@@ -15,40 +15,33 @@ def visualize_classification_results(X_train, y_train, X_test, y_test, y_pred, t
     - y_pred: list of predicted labels for test data
     - title: plot title
     """
-    # Check if the data is 2D (for visualization)
     if len(X_train[0]) != 2:
         print("Error: Can only visualize 2D data. Your data has", len(X_train[0]), "dimensions.")
         return
 
     plt.figure(figsize=(15, 6))
 
-    # Get unique classes
     unique_classes = sorted(list(set(y_train)))
     colors = ['blue', 'red', 'green', 'purple', 'orange', 'brown', 'pink', 'gray', 'olive', 'cyan']
 
-    # Plot 1: Training and test data with true labels
     plt.subplot(1, 2, 1)
 
-    # Plot training data
     for i, class_label in enumerate(unique_classes):
         indices = [j for j, label in enumerate(y_train) if label == class_label]
         class_points = [X_train[j] for j in indices]
 
-        # Extract coordinates
         x_coords = [point[0] for point in class_points]
         y_coords = [point[1] for point in class_points]
 
-        # Plot this class
         color = colors[i % len(colors)]
         plt.scatter(x_coords, y_coords, color=color, label=f'Class {class_label} (train)',
                     marker='o', alpha=0.3)
 
-    # Plot test data with true labels
     for i, class_label in enumerate(unique_classes):
         indices = [j for j, label in enumerate(y_test) if label == class_label]
         class_points = [X_test[j] for j in indices]
 
-        if not class_points:  # Skip if no points for this class
+        if not class_points:
             continue
 
         x_coords = [point[0] for point in class_points]
@@ -64,10 +57,8 @@ def visualize_classification_results(X_train, y_train, X_test, y_test, y_pred, t
     plt.legend()
     plt.grid(True, alpha=0.3)
 
-    # Plot 2: Test data with predicted labels
     plt.subplot(1, 2, 2)
 
-    # Plot training data (muted)
     for i, class_label in enumerate(unique_classes):
         indices = [j for j, label in enumerate(y_train) if label == class_label]
         class_points = [X_train[j] for j in indices]
@@ -76,14 +67,13 @@ def visualize_classification_results(X_train, y_train, X_test, y_test, y_pred, t
         y_coords = [point[1] for point in class_points]
 
         color = colors[i % len(colors)]
-        plt.scatter(x_coords, y_coords, color=color, alpha=0.1)  # Very transparent
+        plt.scatter(x_coords, y_coords, color=color, alpha=0.1)
 
-    # Plot test data with predicted labels
     for i, class_label in enumerate(unique_classes):
         indices = [j for j, pred in enumerate(y_pred) if pred == class_label]
         class_points = [X_test[j] for j in indices]
 
-        if not class_points:  # Skip if no predictions for this class
+        if not class_points:
             continue
 
         x_coords = [point[0] for point in class_points]
@@ -93,7 +83,6 @@ def visualize_classification_results(X_train, y_train, X_test, y_test, y_pred, t
         plt.scatter(x_coords, y_coords, color=color, label=f'Predicted Class {class_label}',
                     marker='x', alpha=1.0, s=100)
 
-    # Highlight misclassified points
     misclassified_indices = [i for i in range(len(y_test)) if y_test[i] != y_pred[i]]
 
     if misclassified_indices:
@@ -110,7 +99,6 @@ def visualize_classification_results(X_train, y_train, X_test, y_test, y_pred, t
     plt.legend()
     plt.grid(True, alpha=0.3)
 
-    # Add accuracy information
     accuracy = sum(1 for i in range(len(y_test)) if y_test[i] == y_pred[i]) / len(y_test)
     plt.figtext(0.5, 0.01, f'Accuracy: {accuracy:.2%}', ha='center', fontsize=12,
                 bbox=dict(facecolor='yellow', alpha=0.5))
@@ -133,17 +121,14 @@ def visualize_clustering_comparison(X, true_labels, predicted_labels, centers=No
     - centers: list of predicted cluster centers (optional)
     - title: plot title
     """
-    # Check if the data is 2D
     if len(X[0]) != 2:
         print("Error: Can only visualize 2D data. Your data has", len(X[0]), "dimensions.")
         return
 
     plt.figure(figsize=(15, 6))
 
-    # Colors for clusters
     colors = ['blue', 'red', 'green', 'purple', 'orange', 'brown', 'pink', 'gray', 'olive', 'cyan']
 
-    # Plot 1: True clusters
     plt.subplot(1, 2, 1)
 
     unique_true_labels = sorted(list(set(true_labels)))
@@ -163,7 +148,6 @@ def visualize_clustering_comparison(X, true_labels, predicted_labels, centers=No
     plt.legend()
     plt.grid(True, alpha=0.3)
 
-    # Plot 2: Predicted clusters
     plt.subplot(1, 2, 2)
 
     unique_pred_labels = sorted(list(set(predicted_labels)))
@@ -177,7 +161,6 @@ def visualize_clustering_comparison(X, true_labels, predicted_labels, centers=No
         color = colors[i % len(colors)]
         plt.scatter(x_coords, y_coords, color=color, label=f'Predicted Cluster {label}', alpha=0.7)
 
-    # Add centers if provided
     if centers:
         center_x = [center[0] for center in centers]
         center_y = [center[1] for center in centers]
@@ -189,8 +172,6 @@ def visualize_clustering_comparison(X, true_labels, predicted_labels, centers=No
     plt.legend()
     plt.grid(True, alpha=0.3)
 
-    # Calculate and display clustering agreement
-    # (This is a simplified measure and not as sophisticated as measures like adjusted Rand index)
     agreement_score = calculate_cluster_agreement(true_labels, predicted_labels)
     plt.figtext(0.5, 0.01, f'Cluster Agreement Score: {agreement_score:.2f}', ha='center',
                 fontsize=12, bbox=dict(facecolor='yellow', alpha=0.5))

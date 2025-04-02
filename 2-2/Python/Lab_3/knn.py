@@ -17,14 +17,11 @@ def k_nn(X_train, y_train, X_test, k=3, distance_function=euclidean_distance):
     """
     predictions = []
     for test_point in X_test:
-        # Обчислити відстані від тестової точки до всіх тренувальних точок
         distances = [(distance_function(test_point, train_point), i)
                      for i, train_point in enumerate(X_train)]
-        # Відсортувати за відстанню та вибрати k найближчих
         distances.sort(key=lambda x: x[0])
         k_nearest_indices = [i for _, i in distances[:k]]
         k_nearest_labels = [y_train[i] for i in k_nearest_indices]
-        # Вибрати найпоширенішу мітку серед k найближчих
         prediction = max(set(k_nearest_labels), key=k_nearest_labels.count)
         predictions.append(prediction)
     return predictions

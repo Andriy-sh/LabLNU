@@ -1,0 +1,72 @@
+{
+    "name": "TestDB",
+    "tables": {
+        "users": {
+            "columns": [
+                [
+                    "id",
+                    "IntegerType",
+                    false
+                ],
+                [
+                    "name",
+                    "StringType",
+                    false
+                ],
+                [
+                    "active",
+                    "BooleanType",
+                    false
+                ]
+            ],
+            "rows": [
+                {
+                    "id": 1,
+                    "name": "Alice",
+                    "active": true
+                },
+                {
+                    "id": 2,
+                    "name": "Bob",
+                    "active": false
+                },
+                {
+                    "id": 3,
+                    "name": "Charlie",
+                    "active": true
+                }
+            ]
+        },
+        "orders": {
+            "columns": [
+                [
+                    "order_id",
+                    "IntegerType",
+                    false
+                ],
+                [
+                    "user_id",
+                    "IntegerType",
+                    false
+                ],
+                [
+                    "amount",
+                    "IntegerType",
+                    false
+                ]
+            ],
+            "rows": [
+                {
+                    "order_id": 101,
+                    "user_id": 1,
+                    "amount": 250
+                },
+                {
+                    "order_id": 102,
+                    "user_id": 3,
+                    "amount": 100
+                }
+            ]
+        }
+    }
+}
