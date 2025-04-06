@@ -13,5 +13,7 @@ class DatabaseRegistry:
         return cls._databases.get(name)
 
 
-DatabaseRegistry.register("default", SQLiteDB("default"))
-DatabaseRegistry.register("test", SQLiteDB("test"))
+DatabaseRegistry.register("category", SQLiteDB("category"))
+DatabaseRegistry.register("user", SQLiteDB("user"))
+DatabaseRegistry.register("switch_user", SQLiteDB("switch_user"))
+DatabaseRegistry.register("product", SQLiteDB("product"))
