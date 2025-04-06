@@ -40,3 +40,14 @@ class SQLiteDB:
         self.cursor.execute(f"DELETE FROM {table_name} WHERE id = ?", (obj_id,))
         self.conn.commit()
         return True
+
+    def filter_by_field(self, table_name, field_name, field_value):
+        query = f"SELECT * FROM {table_name} WHERE {field_name} = ?"
+        self.cursor.execute(query, (field_value,))
+        rows = self.cursor.fetchall()
+
+        if not rows:
+            return None
+
+        columns = [column[0] for column in self.cursor.description]
+        return [dict(zip(columns, row)) for row in rows]

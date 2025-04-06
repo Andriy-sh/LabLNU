@@ -28,3 +28,11 @@ class BaseModel:
     @classmethod
     def delete(cls, obj_id):
         return cls._db_instance.delete(cls.__name__, obj_id)
+
+    @classmethod
+    def filter_by_field(cls, field_name, field_value):
+        return cls._db_instance.filter_by_field(
+            table_name=cls.__name__.lower(),
+            field_name=field_name,
+            field_value=field_value
+        )
