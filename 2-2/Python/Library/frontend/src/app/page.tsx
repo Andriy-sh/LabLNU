@@ -15,12 +15,12 @@ interface Book {
 }
 
 const gradients = [
-  "from-indigo-500 to-purple-500",
-  "from-rose-400 to-red-500",
-  "from-green-400 to-emerald-500",
-  "from-blue-400 to-cyan-500",
-  "from-yellow-400 to-orange-500",
-  "from-pink-400 to-fuchsia-500",
+  "from-purple-600 to-blue-500",
+  "from-emerald-500 to-teal-400",
+  "from-rose-500 to-orange-400",
+  "from-amber-500 to-yellow-400",
+  "from-indigo-500 to-blue-400",
+  "from-pink-500 to-rose-400",
 ];
 
 export default function Home() {
@@ -128,27 +128,29 @@ export default function Home() {
     }
   };
 
-  // Генерує псевдовипадковий індекс для градієнта на основі book.id
   const getGradientClass = (id: number) => {
     const gradient = gradients[id % gradients.length];
     return `bg-gradient-to-br ${gradient}`;
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-12 px-6">
-      <div className="mb-8 space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="max-w-6xl mx-auto py-12 px-6">
+      <div className="mb-12 space-y-6">
+        <h1 className="text-4xl font-bold text-gray-800 text-center mb-8">
+          Library Collection
+        </h1>
+        <div className=" grid grid-cols-3 gap-6">
           <input
             type="text"
             placeholder="Search by title..."
             value={searchTitle}
             onChange={(e) => setSearchTitle(e.target.value)}
-            className="p-2 border rounded-md"
+            className="p-4 border-2 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
           />
           <select
             value={selectedAuthor}
             onChange={(e) => setSelectedAuthor(e.target.value)}
-            className="p-2 border rounded-md"
+            className="p-4 border-2 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
           >
             <option value="">All Authors</option>
             {authors.map((author) => (
@@ -163,7 +165,7 @@ export default function Home() {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="p-2 border rounded-md"
+            className="p-4 border-2 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
           >
             <option value="">All Categories</option>
             {categories.map((category) => (
@@ -175,59 +177,76 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-8 grid-cols-1 md:grid-cols-2">
         {filteredBooks.map((book) => (
           <Link key={book.id} href={`/books/${book.id}`}>
-            <div className="relative bg-white rounded-3xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-2xl transition-all duration-300 p-6">
-              <button
-                onClick={(e) => handleDelete(e, book.id)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors"
-              >
-                ✕
-              </button>
-              <div className="flex justify-center mb-6">
-                <div
-                  className={`w-32 h-48 ${getGradientClass(
-                    book.id
-                  )} rounded-xl shadow-md flex items-center justify-center`}
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
+              <div className={`${getGradientClass(book.id)} h-32 relative`}>
+                <button
+                  onClick={(e) => handleDelete(e, book.id)}
+                  className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm p-2 rounded-full hover:bg-white/40 transition-all"
                 >
-                  <span className="text-white text-xl font-bold opacity-60">
-                    📖
-                  </span>
-                </div>
+                  <span className="text-white">✕</span>
+                </button>
               </div>
 
-              <h3 className="text-2xl font-bold text-gray-800 mb-3 text-center">
-                {book.title}
-              </h3>
-              <ul className="text-gray-700 text-base font-medium space-y-1 text-center">
-                <li>
-                  👥 <span className="text-gray-900">Authors:</span>{" "}
-                  {book.authors
-                    ?.map(
-                      (author) => `${author.first_name} ${author.last_name}`
-                    )
-                    .join(", ") || "No authors listed"}
-                </li>
-                <li>
-                  📚 <span className="text-gray-900">Categories:</span>{" "}
-                  {book.categories
-                    ?.map((category) => category.name)
-                    .join(", ") || "Uncategorized"}
-                </li>
-                <li>
-                  📅 <span className="text-gray-900">Published:</span>{" "}
-                  {book.publication_year}
-                </li>
-                <li>
-                  🔢 <span className="text-gray-900">ISBN:</span> {book.isbn}
-                </li>
-                <li>
-                  ✅ <span className="text-gray-900">Available:</span>{" "}
-                  {book.copies_available}{" "}
-                  {book.copies_available === 1 ? "copy" : "copies"}
-                </li>
-              </ul>
+              <div className="p-6">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                  {book.title}
+                </h3>
+
+                <div className="space-y-4">
+                  <div className="flex flex-wrap gap-2">
+                    {book.authors?.map((author, idx) => (
+                      <div
+                        key={author.id}
+                        className="flex items-center bg-gray-100 rounded-full px-4 py-2"
+                      >
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white text-sm font-bold mr-2">
+                          {author.first_name[0]}
+                          {author.last_name[0]}
+                        </div>
+                        <span className="text-sm font-medium">
+                          {author.first_name} {author.last_name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    {book.categories?.map((category) => (
+                      <span
+                        key={category.id}
+                        className="px-3 py-1 bg-gray-100 rounded-full text-sm font-medium text-gray-600"
+                      >
+                        {category.name}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 mt-4">
+                    <div className="text-sm">
+                      <span className="block text-gray-500">Published</span>
+                      <span className="font-medium">
+                        {book.publication_year}
+                      </span>
+                    </div>
+                    <div className="text-sm">
+                      <span className="block text-gray-500">ISBN</span>
+                      <span className="font-medium">{book.isbn}</span>
+                    </div>
+                    <div className="text-sm col-span-2">
+                      <span className="block text-gray-500">
+                        Available Copies
+                      </span>
+                      <span className="font-medium">
+                        {book.copies_available}{" "}
+                        {book.copies_available === 1 ? "copy" : "copies"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </Link>
         ))}

@@ -56,7 +56,6 @@ export default function CategoriesPage() {
     setEditingCategory(category);
   };
 
-  // Add this new function after handleEdit
   const handleDelete = async (categoryId: number) => {
     try {
       const response = await fetch(

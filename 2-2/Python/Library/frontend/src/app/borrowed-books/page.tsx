@@ -35,7 +35,6 @@ export default function BorrowedBooks() {
         [loansRes.json(), allLoansRes.json(), booksRes.json(), usersRes.json()]
       );
 
-      // Create lookup objects for books and users
       const booksLookup = booksData.reduce((acc: any, book: Book) => {
         acc[book.id] = book;
         return acc;
@@ -68,28 +67,25 @@ export default function BorrowedBooks() {
         "http://localhost:8000/borrowed-books/active"
       );
       const data = await response.json();
-      console.log("Active Loans Data:", data); // Log the fetched data
-      // Ensure data is an array
+      console.log("Active Loans Data:", data); 
       setActiveLoans(data);
     } catch (error) {
       console.error("Error fetching active loans:", error);
-      setActiveLoans([]); // Set empty array on error
+      setActiveLoans([]); 
     }
   };
 
   useEffect(() => {
     fetchActiveLoans();
   }, []);
-  console.log("Active Loans:", activeLoans); // Log the state variable
+  console.log("Active Loans:", activeLoans); 
   const handleBorrow = async (borrowData: BorrowBookFormData) => {
     try {
-      // First, get the current book data
       const bookResponse = await fetch(
         `http://localhost:8000/books/${borrowData.book_id}`
       );
       const bookData = await bookResponse.json();
 
-      // Update the book's copies_available
       const updateBookResponse = await fetch(
         `http://localhost:8000/books/${borrowData.book_id}`,
         {
@@ -117,7 +113,6 @@ export default function BorrowedBooks() {
         throw new Error(errorData.detail || "Failed to update book copies");
       }
 
-      // Create the borrowed book record
       const response = await fetch("http://localhost:8000/borrowed-books/", {
         method: "POST",
         headers: {
@@ -142,19 +137,16 @@ export default function BorrowedBooks() {
 
   const handleReturn = async (borrowedBookId: number) => {
     try {
-      // First get the borrowed book details to know which book to update
       const borrowedResponse = await fetch(
         `http://localhost:8000/borrowed-books/${borrowedBookId}`
       );
       const borrowedData = await borrowedResponse.json();
 
-      // Get the current book data
       const bookResponse = await fetch(
         `http://localhost:8000/books/${borrowedData.book_id}`
       );
       const bookData = await bookResponse.json();
 
-      // Update the book's copies_available
       const updateBookResponse = await fetch(
         `http://localhost:8000/books/${borrowedData.book_id}`,
         {
@@ -182,7 +174,6 @@ export default function BorrowedBooks() {
         throw new Error(errorData.detail || "Failed to update book copies");
       }
 
-      // Mark the book as returned
       const response = await fetch(
         `http://localhost:8000/borrowed-books/${borrowedBookId}/return`,
         {

@@ -22,7 +22,6 @@ def get_engine() -> Engine:
 
 def create_db_and_tables():
     try:
-        # Import all models to ensure they're registered with SQLModel
         from app.models.book import Book
         from app.models.author import Author
         from app.models.category import Category
@@ -30,24 +29,19 @@ def create_db_and_tables():
         from app.models.borrowed_book import BorrowedBook
         from app.models.associations import BookAuthor, BookCategory
 
-        # Test database connection
         with get_engine().connect() as conn:
             logger.info("Database connection successful")
 
-        # Log registered models
         logger.info("Registered models: %s", SQLModel.metadata.tables.keys())
 
-        # Create tables
         logger.info("Creating database tables...")
         SQLModel.metadata.create_all(get_engine())
         logger.info("Database tables created successfully")
 
-        # Verify tables
         inspector = inspect(get_engine())
         existing_tables = inspector.get_table_names()
         logger.info("Existing tables: %s", existing_tables)
 
-        # Check for expected tables
         expected_tables = [
             "book", "author", "category", "user", 
             "borrowed_book", "bookauthor", "bookcategory"

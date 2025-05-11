@@ -82,7 +82,6 @@ export default function UsersPage() {
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Users List */}
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-bold mb-4">Users List</h2>
           <div className="space-y-4">
@@ -173,7 +172,6 @@ export default function UsersPage() {
           </div>
         </div>
 
-        {/* Add User Form */}
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-bold mb-4">Add New User</h2>
           <UserForm onSubmit={handleSubmit} />

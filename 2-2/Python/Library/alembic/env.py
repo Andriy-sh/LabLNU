@@ -2,13 +2,12 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
-from app.models import *  # This will import all models
+from app.models import * 
 from app.config import get_settings
 
 config = context.config
 settings = get_settings()
 
-# Set the database URL in the alembic configuration
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 if config.config_file_name is not None:

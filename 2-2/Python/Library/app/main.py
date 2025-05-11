@@ -108,19 +108,18 @@ app = FastAPI(
 )
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Update this to match your frontend port
+    allow_origins=["http://localhost:3000"], 
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
-# Include all routers
 app.include_router(books.router)
 app.include_router(authors.router)
 app.include_router(categories.router)
 app.include_router(users.router)
 app.include_router(borrowed_books.router)
 app.include_router(associations_router)
-# Setup logging
+
 logger = setup_logger()
 
 @app.on_event("startup")

@@ -13,17 +13,14 @@ router = APIRouter(prefix="/associations", tags=["associations"])
 def create_book_author_association(
     *, db: Session = Depends(get_session), book_id: int, author_id: int
 ):
-    # Check if book exists
     book = db.exec(select(Book).where(Book.id == book_id)).first()
     if not book:
         raise HTTPException(status_code=404, detail="Book not found")
 
-    # Check if author exists
     author = db.exec(select(Author).where(Author.id == author_id)).first()
     if not author:
         raise HTTPException(status_code=404, detail="Author not found")
 
-    # Create association
     association = BookAuthor(book_id=book_id, author_id=author_id)
     db.add(association)
     db.commit()
@@ -33,17 +30,14 @@ def create_book_author_association(
 def create_book_category_association(
     *, db: Session = Depends(get_session), book_id: int, category_id: int
 ):
-    # Check if book exists
     book = db.exec(select(Book).where(Book.id == book_id)).first()
     if not book:
         raise HTTPException(status_code=404, detail="Book not found")
 
-    # Check if category exists
     category = db.exec(select(Category).where(Category.id == category_id)).first()
     if not category:
         raise HTTPException(status_code=404, detail="Category not found")
 
-    # Create association
     association = BookCategory(book_id=book_id, category_id=category_id)
     db.add(association)
     db.commit()

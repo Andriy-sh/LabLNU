@@ -14,12 +14,10 @@ router = APIRouter(prefix="/books", tags=["books"])
 @router.post("/", response_model=BookResponse)
 def create_book(*, db: Session = Depends(get_session), book_in: BookCreate):
     try:
-        # Check if book exists
         existing_book = book.get_by_isbn(db, isbn=book_in.isbn)
         if existing_book:
             raise HTTPException(status_code=400, detail="Book with this ISBN already exists")
         
-        # Create new book
         new_book = Book(
             title=book_in.title,
             publication_year=book_in.publication_year,
@@ -27,9 +25,8 @@ def create_book(*, db: Session = Depends(get_session), book_in: BookCreate):
             copies_available=book_in.copies_available
         )
         db.add(new_book)
-        db.flush()  # Get the new book ID
+        db.flush() 
 
-        # Create author relationships
         for author_id in book_in.author_ids:
             author = db.query(Author).filter(Author.id == author_id).first()
             if not author:
@@ -37,7 +34,6 @@ def create_book(*, db: Session = Depends(get_session), book_in: BookCreate):
             book_author = BookAuthor(book_id=new_book.id, author_id=author_id)
             db.add(book_author)
 
-        # Create category relationships
         for category_id in book_in.category_ids:
             category = db.query(Category).filter(Category.id == category_id).first()
             if not category:
