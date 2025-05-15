@@ -6,6 +6,7 @@ export interface UserFormData {
   first_name: string;
   last_name: string;
   email: string;
+  password: string;
 }
 
 interface UserFormProps {
@@ -14,6 +15,7 @@ interface UserFormProps {
     first_name: string;
     last_name: string;
     email: string;
+    password: string;
   };
 }
 
@@ -22,6 +24,7 @@ export default function UserForm({ onSubmit, initialData }: UserFormProps) {
     first_name: initialData?.first_name || "",
     last_name: initialData?.last_name || "",
     email: initialData?.email || "",
+    password: initialData?.password || "",
   });
 
   useEffect(() => {
@@ -30,6 +33,7 @@ export default function UserForm({ onSubmit, initialData }: UserFormProps) {
         first_name: initialData.first_name,
         last_name: initialData.last_name,
         email: initialData.email,
+        password: initialData.password,
       });
     }
   }, [initialData]);
@@ -95,6 +99,24 @@ export default function UserForm({ onSubmit, initialData }: UserFormProps) {
           required
         />
       </div>
+      
+      <div>
+        <label
+          htmlFor="password"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Password
+        </label>
+        <input
+          type="password"
+          id="password"
+          value={formData.password}
+          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          required
+        />
+      </div>
+
 
       <button
         type="submit"

@@ -6,6 +6,7 @@ class UserBase(SQLModel):
     first_name: str
     last_name: str
     email: str = Field(unique=True, index=True)
+    password: str
     registration_date: datetime = Field(default_factory=datetime.utcnow)
 
 class User(UserBase, table=True):

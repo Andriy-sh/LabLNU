@@ -97,7 +97,7 @@ from app.api.associations import router as associations_router
 from fastapi import FastAPI
 from app.db.database import init_db
 from app.utils.logger import setup_logger
-from app.api import books, authors, categories, users, borrowed_books
+from app.api import books, authors, categories, users, borrowed_books, auth
 from app.models import book, author, category, user, borrowed_book, associations
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -116,10 +116,10 @@ app.add_middleware(
 app.include_router(books.router)
 app.include_router(authors.router)
 app.include_router(categories.router)
-app.include_router(users.router)
 app.include_router(borrowed_books.router)
 app.include_router(associations_router)
-
+app.include_router(auth.router, prefix="/auth", tags=["auth"])
+app.include_router(users.router, prefix="/users", tags=["users"])
 logger = setup_logger()
 
 @app.on_event("startup")

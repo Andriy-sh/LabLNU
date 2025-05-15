@@ -60,6 +60,22 @@ export default function Navbar() {
                 >
                   Users
                 </Link>
+                <Link
+                  href="/login"
+                  className={`${isActive(
+                    "/login"
+                  )} text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700`}
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/profile"
+                  className={`${isActive(
+                    "/profile"
+                  )} text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700`}
+                >
+                  Profile
+                </Link>
               </div>
             </div>
           </div>
