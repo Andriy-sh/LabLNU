@@ -32,8 +32,8 @@ export default function BookForm({ onSubmit }: BookFormProps) {
     const fetchData = async () => {
       try {
         const [authorsRes, categoriesRes] = await Promise.all([
-          fetch("http://localhost:8000/authors/"),
-          fetch("http://localhost:8000/categories/"),
+          fetch("http://localhost:/authors/"),
+          fetch("http://localhost:/categories/"),
         ]);
         const [authorsData, categoriesData] = await Promise.all([
           authorsRes.json(),

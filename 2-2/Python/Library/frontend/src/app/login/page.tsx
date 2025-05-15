@@ -13,7 +13,7 @@ export default function LoginPage() {
     const formData = new FormData(e.currentTarget);
 
     try {
-      const response = await axios.post("http://localhost:8000/auth/login", {
+      const response = await axios.post("http://localhost:/auth/login", {
         email: formData.get("email"),
         password: formData.get("password"),
       });

@@ -38,15 +38,15 @@ export default function Home() {
 
   const fetchBooks = async () => {
     try {
-      const booksRes = await axios.get("http://localhost:8000/books");
+      const booksRes = await axios.get("http://localhost:/books");
       const booksData = await Promise.all(
         booksRes.data.map(async (book: Book) => {
           const [authorsRes, categoriesRes] = await Promise.all([
             axios.get(
-              `http://localhost:8000/associations/book/${book.id}/authors`
+              `http://localhost:/associations/book/${book.id}/authors`
             ),
             axios.get(
-              `http://localhost:8000/associations/book/${book.id}/categories`
+              `http://localhost:/associations/book/${book.id}/categories`
             ),
           ]);
 
@@ -70,8 +70,8 @@ export default function Home() {
   const fetchFilters = async () => {
     try {
       const [authorsRes, categoriesRes] = await Promise.all([
-        axios.get("http://localhost:8000/authors"),
-        axios.get("http://localhost:8000/categories"),
+        axios.get("http://localhost:/authors"),
+        axios.get("http://localhost:/categories"),
       ]);
       setAuthors(authorsRes.data);
       setCategories(categoriesRes.data);
@@ -115,7 +115,7 @@ export default function Home() {
   const handleDelete = async (e: React.MouseEvent, bookId: number) => {
     e.preventDefault();
     try {
-      await axios.delete(`http://localhost:8000/books/${bookId}`, {
+      await axios.delete(`http://localhost:/books/${bookId}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

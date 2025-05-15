@@ -26,7 +26,7 @@ export default function UsersPage() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/users");
+      const response = await axios.get("http://localhost:/users");
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -39,7 +39,7 @@ export default function UsersPage() {
 
   const handleSubmit = async (userData: UserFormData) => {
     try {
-      await axios.post("http://localhost:8000/users", userData);
+      await axios.post("http://localhost:/users", userData);
       fetchUsers();
     } catch (error: any) {
       console.error("Error saving user:", error);
@@ -61,7 +61,7 @@ export default function UsersPage() {
 
   const handleUpdate = async (userId: number) => {
     try {
-      await axios.put(`http://localhost:8000/users/${userId}`, editFormData);
+      await axios.put(`http://localhost:/users/${userId}`, editFormData);
       setEditingUser(null);
       fetchUsers();
     } catch (error) {
@@ -72,7 +72,7 @@ export default function UsersPage() {
 
   const handleDelete = async (userId: number) => {
     try {
-      await axios.delete(`http://localhost:8000/users/${userId}`);
+      await axios.delete(`http://localhost:/users/${userId}`);
       fetchUsers();
     } catch (error) {
       console.error("Error deleting user:", error);

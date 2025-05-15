@@ -25,10 +25,10 @@ export default function BorrowedBooks() {
   const fetchData = async () => {
     try {
       const [loansRes, allLoansRes, booksRes, usersRes] = await Promise.all([
-        fetch("http://localhost:8000/borrowed-books/active"),
-        fetch("http://localhost:8000/borrowed-books/"),
-        fetch("http://localhost:8000/books/"),
-        fetch("http://localhost:8000/users/"),
+        fetch("http://localhost:/borrowed-books/active"),
+        fetch("http://localhost:/borrowed-books/"),
+        fetch("http://localhost:/books/"),
+        fetch("http://localhost:/users/"),
       ]);
 
       const [loansData, allLoansData, booksData, usersData] = await Promise.all(
@@ -64,7 +64,7 @@ export default function BorrowedBooks() {
   const fetchActiveLoans = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/borrowed-books/active"
+        "http://localhost:/borrowed-books/active"
       );
       const data = await response.json();
       console.log("Active Loans Data:", data); 
@@ -82,12 +82,12 @@ export default function BorrowedBooks() {
   const handleBorrow = async (borrowData: BorrowBookFormData) => {
     try {
       const bookResponse = await fetch(
-        `http://localhost:8000/books/${borrowData.book_id}`
+        `http://localhost:/books/${borrowData.book_id}`
       );
       const bookData = await bookResponse.json();
 
       const updateBookResponse = await fetch(
-        `http://localhost:8000/books/${borrowData.book_id}`,
+        `http://localhost:/books/${borrowData.book_id}`,
         {
           method: "PUT",
           headers: {
@@ -113,7 +113,7 @@ export default function BorrowedBooks() {
         throw new Error(errorData.detail || "Failed to update book copies");
       }
 
-      const response = await fetch("http://localhost:8000/borrowed-books/", {
+      const response = await fetch("http://localhost:/borrowed-books/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -138,17 +138,17 @@ export default function BorrowedBooks() {
   const handleReturn = async (borrowedBookId: number) => {
     try {
       const borrowedResponse = await fetch(
-        `http://localhost:8000/borrowed-books/${borrowedBookId}`
+        `http://localhost:/borrowed-books/${borrowedBookId}`
       );
       const borrowedData = await borrowedResponse.json();
 
       const bookResponse = await fetch(
-        `http://localhost:8000/books/${borrowedData.book_id}`
+        `http://localhost:/books/${borrowedData.book_id}`
       );
       const bookData = await bookResponse.json();
 
       const updateBookResponse = await fetch(
-        `http://localhost:8000/books/${borrowedData.book_id}`,
+        `http://localhost:/books/${borrowedData.book_id}`,
         {
           method: "PUT",
           headers: {
@@ -175,7 +175,7 @@ export default function BorrowedBooks() {
       }
 
       const response = await fetch(
-        `http://localhost:8000/borrowed-books/${borrowedBookId}/return`,
+        `http://localhost:/borrowed-books/${borrowedBookId}/return`,
         {
           method: "POST",
         }

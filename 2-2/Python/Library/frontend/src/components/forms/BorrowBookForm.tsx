@@ -28,8 +28,8 @@ export default function BorrowBookForm({ onSubmit }: BorrowBookFormProps) {
     const fetchData = async () => {
       try {
         const [booksRes, usersRes] = await Promise.all([
-          axios.get("http://localhost:8000/books/"),
-          axios.get("http://localhost:8000/users/"),
+          axios.get("http://localhost:/books/"),
+          axios.get("http://localhost:/users/"),
         ]);
         console.log(booksRes.data);
         console.log(usersRes.data);

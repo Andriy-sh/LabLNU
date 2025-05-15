@@ -16,7 +16,7 @@ export default function AddBook() {
 
   const handleSubmit = async (bookData: BookFormData) => {
     try {
-      const response = await fetch("http://localhost:8000/books/", {
+      const response = await fetch("http://localhost:/books/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

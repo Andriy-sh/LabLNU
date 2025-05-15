@@ -12,7 +12,7 @@ export default function CategoriesPage() {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://localhost:8000/categories/");
+      const response = await fetch("http://localhost:/categories/");
       const data = await response.json();
       setCategories(data);
     } catch (error) {
@@ -28,8 +28,8 @@ export default function CategoriesPage() {
     try {
       const response = await fetch(
         editingCategory
-          ? `http://localhost:8000/categories/${editingCategory.id}`
-          : "http://localhost:8000/categories/",
+          ? `http://localhost:/categories/${editingCategory.id}`
+          : "http://localhost:/categories/",
         {
           method: editingCategory ? "PUT" : "POST",
           headers: {
@@ -59,7 +59,7 @@ export default function CategoriesPage() {
   const handleDelete = async (categoryId: number) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/categories/${categoryId}`,
+        `http://localhost:/categories/${categoryId}`,
         {
           method: "DELETE",
         }

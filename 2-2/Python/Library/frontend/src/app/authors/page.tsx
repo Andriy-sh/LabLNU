@@ -10,7 +10,7 @@ export default function AuthorsPage() {
 
   const fetchAuthors = async () => {
     try {
-      const response = await fetch("http://localhost:8000/authors/");
+      const response = await fetch("http://localhost:/authors/");
       const data = await response.json();
       setAuthors(data);
     } catch (error) {
@@ -26,8 +26,8 @@ export default function AuthorsPage() {
     try {
       const response = await fetch(
         editingAuthor
-          ? `http://localhost:8000/authors/${editingAuthor.id}`
-          : "http://localhost:8000/authors/",
+          ? `http://localhost:/authors/${editingAuthor.id}`
+          : "http://localhost:/authors/",
         {
           method: editingAuthor ? "PUT" : "POST",
           headers: {
@@ -53,7 +53,7 @@ export default function AuthorsPage() {
   const handleDelete = async (authorId: number) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/authors/${authorId}`,
+        `http://localhost:/authors/${authorId}`,
         {
           method: "DELETE",
         }
