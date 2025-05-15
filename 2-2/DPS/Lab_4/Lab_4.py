@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from openai import OpenAI
 
-client = OpenAI(api_key='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')  # Замініть на ваш API ключ
+client = OpenAI(api_key='key')  
 
 df = pd.read_csv('2018.csv')
 
