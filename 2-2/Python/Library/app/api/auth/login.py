@@ -8,7 +8,7 @@ from app.db.database import get_session
 from app.crud.users import user
 from app.schemas.auth import LoginRequest, LoginResponse
 
-SECRET_KEY = "your-secret-key-here"  # В реальному проекті використовуйте безпечний ключ
+SECRET_KEY = "your-secret-key-here"  
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
@@ -31,7 +31,7 @@ def login(*, db: Session = Depends(get_session), login_data: LoginRequest):
     if not db_user:
         raise HTTPException(status_code=401, detail="Неправильний email або пароль")
     
-    if db_user.password != login_data.password:  # В реальному проекті використовуйте хешування паролів!
+    if db_user.password != login_data.password:
         raise HTTPException(status_code=401, detail="Неправильний email або пароль")
     
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
